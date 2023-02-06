@@ -1,1 +1,3 @@
 DATABASE_LOCATION = "C:\\SourceCode\\ps-rust-actix-api\\flight-plan\\assets\\duckair.db"
+CERTIFICATE_KEY = "assets\\duckair.key"
+CERTIFICATE = "assets\\duckair.crt"
