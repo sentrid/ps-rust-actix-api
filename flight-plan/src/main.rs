@@ -2,13 +2,6 @@ mod schema;
 mod database;
 mod endpoints;
 
-use actix_web::{App, HttpServer};
-use env_logger::Env;
-use actix_web::middleware::Logger;
-
-use crate::endpoints::{get_all_flight_plans, get_flight_plan_by_id, 
-                       delete_flight_plan_by_id, file_flight_plan, 
-                       update_flight_plan};
 use config::Config;
 use actix_web_httpauth::extractors::bearer::{BearerAuth, self};
 use actix_web_httpauth::extractors::AuthenticationError;
