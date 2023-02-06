@@ -27,7 +27,6 @@ async fn validator(
     req: ServiceRequest,
     credentials: BearerAuth
 ) -> Result<ServiceRequest, (Error, ServiceRequest)> {
-
     let config = req.app_data::<bearer::Config>()
             .cloned()
             .unwrap_or_default()
