@@ -2,8 +2,6 @@ mod schema;
 mod database;
 mod endpoints;
 
-
-
 use crate::endpoints::{get_all_flight_plans, get_flight_plan_by_id, 
                        delete_flight_plan_by_id, file_flight_plan, 
                        update_flight_plan, new_user};
