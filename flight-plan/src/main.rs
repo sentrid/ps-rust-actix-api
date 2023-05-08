@@ -23,7 +23,7 @@ async fn validator(
     let config = req.app_data::<bearer::Config>()
             .cloned()
             .unwrap_or_default()
-            .scope("urn:example:channel=HBO&urn:example:rating=G,PG-13");
+            .scope("urn:flight-plans");
 
     match database::get_user(String::from(credentials.token())) {
         Ok(user) => {
