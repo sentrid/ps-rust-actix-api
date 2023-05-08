@@ -1,6 +1,6 @@
 # Rust Web APIs using Actix Course <!-- omit in toc -->
 ## Overview
-This repository contains the example project for the Pluralsight course XYZ
+This repository contains the example project for the Pluralsight course "Building REST API's in Rust 2021 with Actix Web"
 
 ### Repository Branches  
 Branch|Description
