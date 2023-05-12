@@ -23,7 +23,6 @@ For this course we'll be using these tools:
 >  Extension Name|URL
 >  :---|:---
 >  HTTP Sever|https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
->  Rust Syntax|https://marketplace.visualstudio.com/items?itemName=dustypomerleau.rust-syntax |
 >  C++ Intellisense (it works for Rust too)|https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools |
 >  Rust Analyzer|https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer    |  
 >  Even Better TOML|https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml   |
