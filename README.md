@@ -5,7 +5,7 @@ This repository contains the example project for the Pluralsight course "Buildin
 ### Repository Branches  
 Branch|Description
 :---|:---
-Main|This branch holds the finished project
+Master|This branch holds the finished project
 Module3|We will build on this code to implement the database.
 Module4|This branch has the database code that we implemented in Module 3. We will build various aspects of endpoints on this code.
 Module5|This branch has the database code that we implemented in Module 4. We're going to implement authentication and  security for the APIs in this module.
