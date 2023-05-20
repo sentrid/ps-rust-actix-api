@@ -1,3 +1,3 @@
-DATABASE_LOCATION = "assets\\duckair.db"
-CERTIFICATE_KEY = "assets\\duckair.key"
-CERTIFICATE = "assets\\duckair.crt"
+DATABASE_LOCATION = "assets/duckair.db"
+CERTIFICATE_KEY = "assets/duckair.key"
+CERTIFICATE = "assets/duckair.crt"
