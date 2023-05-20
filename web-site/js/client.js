@@ -1,6 +1,7 @@
-
 const api_base_url = "https://localhost:3001";
 const api_path = "/api/v1/flightplan";
+
+const api_key = "f90ed373612749eda337c9a4d537c247";
 
 async function logout() {
     let api_response = await fetch(api_base_url + '/logout', {
@@ -32,7 +33,9 @@ async function login () {
 async function get_all_flight_plans() {
     let api_response = await fetch(api_base_url + api_path, {
         method: "GET",
-        credentials: 'include'
+        headers: {
+            'Authorization': 'Bearer ' + api_key
+        }
     });
 
     if(api_response.status !== 200) {
@@ -111,7 +114,9 @@ async function get_all_flight_plans() {
 async function delete_flight_plan(flight_plan_id) {
     let response = await fetch(api_base_url  + api_path + '/' + flight_plan_id, {
         method: 'DELETE',
-        credentials: 'include'
+        headers: {
+            'Authorization': 'Bearer ' + api_key
+        }
     });
 
     if(response.status !== 200) {
@@ -123,7 +128,9 @@ async function load_flight_plan() {
     let flight_plan_id = document.getElementById("flightPlanId").value;
     let api_response = await fetch(api_base_url + api_path + '/' + flight_plan_id, {
         method: 'GET',
-        credentials: 'include'
+        headers: {
+            'Authorization': 'Bearer ' + api_key
+        }
     });
 
     if(api_response.status !== 200) {
@@ -133,7 +140,20 @@ async function load_flight_plan() {
 
     let api_data = await api_response.json();
 
-    flight_plan_from_api(api_data);
+    document.getElementById('tailNumber').value = api_data.aircraft_identification;
+    document.getElementById('aircraftType').value = api_data.aircraft_type;
+    document.getElementById('airspeed').value = api_data.airspeed;
+    document.getElementById('altitude').value = api_data.altitude;
+    document.getElementById('paxOnBoard').value = api_data.number_onboard;
+    document.getElementById('departureTime').value = api_data.departure_time.substring(0, api_data.departure_time.length - 1);
+    document.getElementById('arrivalTime').value = api_data.estimated_arrival_time.substring(0, api_data.estimated_arrival_time.length - 1);
+    document.getElementById('departAirport').value = api_data.departing_airport;
+    document.getElementById('arriveAirport').value = api_data.arrival_airport;
+    document.getElementById('route').value = api_data.route;
+    document.getElementById('remarks').value = api_data.remarks;
+    document.getElementById('fuelHours').value = api_data.fuel_hours;
+    document.getElementById('fuelMinutes').value = api_data.fuel_minutes;
+    document.getElementById('flightType').value = api_data.flight_type;
 
     document.getElementById('isNew').value = "false"
     document.getElementById('saveButton').text = "Update Flight Plan";
@@ -151,36 +171,11 @@ async function update_flight_plan() {
     let api_response = await fetch(api_base_url + api_path, {
         method: "PUT",
         headers: {
+            'Authorization': 'Bearer ' + api_key,
             'Content-Type': 'application/json'
         },
         credentials: 'include',
-        body: flight_plan_from_document()
-
-    });
-
-    if(api_response.status !== 200) {
-        alert(api_response.status);
-    }
-}
-
-async function file_flight_plan() {
-    let api_response = await fetch(api_base_url + api_path, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        credentials: 'include',
-        body: flight_plan_from_document()
-
-    });
-
-    if(api_response.status !== 200) {
-        alert(api_response.status);
-    }
-}
-
-function flight_plan_from_document() {
-    return JSON.stringify({
+        body: JSON.stringify({
             flight_plan_id: document.getElementById("flightPlanId").value,
             altitude: Number(document.getElementById('altitude').value),
             aircraft_identification: document.getElementById('tailNumber').value,
@@ -196,22 +191,42 @@ function flight_plan_from_document() {
             fuel_hours: Number(document.getElementById('fuelHours').value),
             fuel_minutes: Number(document.getElementById('fuelMinutes').value),
             number_onboard: Number(document.getElementById('paxOnBoard').value)
-        });
+        })
+    });
+
+    if(api_response.status !== 200) {
+        alert(api_response.status);
+    }
 }
 
-function flight_plan_from_api(api_data) {
-    document.getElementById('tailNumber').value = api_data.aircraft_identification;
-    document.getElementById('aircraftType').value = api_data.aircraft_type;
-    document.getElementById('airspeed').value = api_data.airspeed;
-    document.getElementById('altitude').value = api_data.altitude;
-    document.getElementById('paxOnBoard').value = api_data.number_onboard;
-    document.getElementById('departureTime').value = api_data.departure_time.substring(0, api_data.departure_time.length - 1);
-    document.getElementById('arrivalTime').value = api_data.estimated_arrival_time.substring(0, api_data.estimated_arrival_time.length - 1);
-    document.getElementById('departAirport').value = api_data.departing_airport;
-    document.getElementById('arriveAirport').value = api_data.arrival_airport;
-    document.getElementById('route').value = api_data.route;
-    document.getElementById('remarks').value = api_data.remarks;
-    document.getElementById('fuelHours').value = api_data.fuel_hours;
-    document.getElementById('fuelMinutes').value = api_data.fuel_minutes;
-    document.getElementById('flightType').value = api_data.flight_type;
+async function file_flight_plan() {
+    let api_response = await fetch(api_base_url + api_path, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + api_key,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+            flight_plan_id: document.getElementById("flightPlanId").value,
+            altitude: Number(document.getElementById('altitude').value),
+            aircraft_identification: document.getElementById('tailNumber').value,
+            aircraft_type: document.getElementById('aircraftType').value,
+            airspeed: Number(document.getElementById('airspeed').value),
+            arrival_airport: document.getElementById('arriveAirport').value,
+            flight_type: document.getElementById('flightType').value,
+            departing_airport: document.getElementById('departAirport').value,
+            departure_time: new Date(document.getElementById('departureTime').value).toISOString(),
+            estimated_arrival_time: new Date(document.getElementById('arrivalTime').value).toISOString(),
+            route: document.getElementById('route').value,
+            remarks: document.getElementById('remarks').value,
+            fuel_hours: Number(document.getElementById('fuelHours').value),
+            fuel_minutes: Number(document.getElementById('fuelMinutes').value),
+            number_onboard: Number(document.getElementById('paxOnBoard').value)
+        })
+    });
+
+    if(api_response.status !== 200) {
+        alert(api_response.status);
+    }
 }
