@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  psrustactixapi:
+    image: psrustactixapi
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
