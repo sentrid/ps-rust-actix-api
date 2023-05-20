@@ -1,8 +1,10 @@
 version: '3.4'
 
 services:
-  psrustactixapi:
-    image: psrustactixapi
+  web-service:
+    image: web-service
+    ports:
+      - "80:80"
     build:
       context: .
       dockerfile: ./Dockerfile

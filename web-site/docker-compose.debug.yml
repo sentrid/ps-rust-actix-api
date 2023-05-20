@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  psrustactixapi:
+  web-service:
     image: psrustactixapi
     build:
       context: .

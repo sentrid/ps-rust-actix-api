@@ -1,8 +1,7 @@
 FROM rust:latest
-LABEL Name=psrustactixapi Version=0.0.1
+LABEL Name=flight-plan-image Version=0.0.1
 EXPOSE 3000 3001
-RUN cd ../../
-COPY flight-plan /home
+COPY . /home
 WORKDIR /home
 RUN cargo clean
 RUN cargo build

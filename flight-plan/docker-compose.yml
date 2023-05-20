@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  psrustactixapi:
-    image: psrustactixapi
+  flight-plan-service:
+    image: flight-plan-image
     ports:
       - "3000:3000"
       - "3001:3001"

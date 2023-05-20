@@ -1,4 +1,4 @@
-FROM docker/whalesay:latest
+FROM httpd:latest
 LABEL Name=rust-web-ui Version=0.0.1
-RUN apt-get -y update && apt-get install -y fortunes
-CMD ["sh", "-c", "/usr/games/fortune -a | cowsay"]
+EXPOSE 80 443
+COPY . /usr/local/apache2/htdocs/
