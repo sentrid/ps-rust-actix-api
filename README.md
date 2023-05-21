@@ -98,12 +98,12 @@ const CERT: &'static str = "assets\\duckair.crt";
 ```
 
 ## Docker images
-There are docker images for the final implementation of the project which live at https://hub.docker.com/repositories/duckairlines
-There are two images there. One for the API backend and one for the web interface. Below are the `pull` and `run` command lines for each.
+There are docker images for the final implementation of the project which live at https://hub.docker.com/repositories/duckairlines<br>
+There are two images there. One for the API backend and one for the web interface. Below are the `pull` and `run` command lines for each.<br>
 
 The Web API project docker image:
 `docker pull duckairlines/flight-plan:latest`
-`docker run -p 3000:3000 -p 3001:3001 duckairlines/flight-plan:latest`
+`docker run -p 3000:3000 -p 3001:3001 duckairlines/flight-plan:latest`<br>
 
 The Website front end poject docker image:
 `docker pull duckairlines/web-frontend:latest`
