@@ -1,4 +1,17 @@
 # Rust Web APIs using Actix Course <!-- omit in toc -->
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Rust Web APIs using Actix Course <!-- omit in toc -->](#rust-web-apis-using-actix-course)
+  * [Overview](#overview)
+    + [Repository Branches  ](#repository-branches)
+  * [Development Environment Setup](#development-environment-setup)
+    + [Tools](#tools)
+  * [Setup the database](#setup-the-database)
+  * [Updating the paths to files in the code](#updating-the-paths-to-files-in-the-code)
+  * [Docker images](#docker-images)
+  * [More Examples](#more-examples)
+
+<!-- TOC end -->
 ## Overview
 This repository contains the example project for the Pluralsight course "Building REST API's in Rust 2021 with Actix Web"
 
