@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  web-service:
-    image: web-service
+  web-frontend:
+    image: web-frontend
     ports:
       - "80:80"
     build:
