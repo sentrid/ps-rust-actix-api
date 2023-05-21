@@ -102,11 +102,11 @@ There are docker images for the final implementation of the project which live a
 There are two images there. One for the API backend and one for the web interface. Below are the `pull` and `run` command lines for each.<br>
 
 The Web API project docker image:<br>
-`docker pull duckairlines/flight-plan:latest`
+`docker pull duckairlines/flight-plan:latest`<br>
 `docker run -p 3000:3000 -p 3001:3001 duckairlines/flight-plan:latest`<br>
 
 The Website front end poject docker image:<br>
-`docker pull duckairlines/web-frontend:latest`
+`docker pull duckairlines/web-frontend:latest`<br>
 `docker run -p 80:80 duckairlines/web-frontend:latest`
 
 ## More Examples
