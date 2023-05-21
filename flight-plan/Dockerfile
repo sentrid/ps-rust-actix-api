@@ -1,5 +1,5 @@
 FROM rust:latest
-LABEL Name=flight-plan-image Version=0.0.1
+LABEL Name=flight-plan Version=0.0.1
 EXPOSE 3000 3001
 COPY . /home
 WORKDIR /home

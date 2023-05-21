@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   flight-plan-service:
-    image: flight-plan-image
+    image: flight-plan
     ports:
       - "3000:3000"
       - "3001:3001"
