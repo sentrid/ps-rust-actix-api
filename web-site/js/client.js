@@ -121,6 +121,8 @@ async function delete_flight_plan(flight_plan_id) {
 
     if(response.status !== 200) {
         alert(response.status);
+    } else {
+        get_all_flight_plans();
     }
 }
 
