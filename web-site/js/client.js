@@ -4,16 +4,11 @@ const api_path = "/api/v1/flightplan";
 const api_key = "f90ed373612749eda337c9a4d537c247";
 
 async function logout() {
-    let api_response = await fetch(api_base_url + '/logout', {
-        method: "POST",
-        credentials: 'include'
+   let api_response = await fetch(api_base_url + '/logout', {
+        method: "POST"
     });
 
-    if(api_response.status === 204) {
-        document.location.href = "./index.html";
-    } else {
-        alert(api_response.status);
-    }
+    document.location.href = "./index.html";
 }
 
 async function login () {
