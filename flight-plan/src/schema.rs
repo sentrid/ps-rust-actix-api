@@ -22,7 +22,5 @@ pub struct FlightPlan {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct User {
     pub name: String,
-    pub username: String,
-    pub password: String,
     pub api_key: String
 }
