@@ -7,8 +7,8 @@ use crate::schema::{FlightPlan, User};
 pub fn create_user(user: User) -> Result<String, Box<dyn Error>> {
     let api_key = Uuid::new_v4().as_simple().to_string();    
     let connection = get_database_connection()?;
-    let mut statement = connection.prepare("INSERT INTO users (full_name, username, password, api_key) VALUES (?, ?, ?, ?)")?;
-    let _ = statement.execute((user.name, user.username, user.password, api_key.clone()))?;
+    let mut statement = connection.prepare("INSERT INTO users (full_name, api_key) VALUES (?, ?, ?, ?)")?;
+    let _ = statement.execute((user.name, api_key.clone()))?;
     Ok(api_key)
 }
 
@@ -18,8 +18,6 @@ pub fn get_user(api_key: String) -> Result<Option<User>, Box<dyn Error>> {
     let query_result = statement.query_map([&api_key], |row| {
         Ok(User {
             name: row.get(1)?,
-            username: row.get(2)?,
-            password: String::from(""),
             api_key: row.get(4)?
         })
     })?;
