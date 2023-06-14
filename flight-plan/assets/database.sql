@@ -1,8 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
     full_name TEXT,
-    username TEXT UNIQUE, 
-    password TEXT,
     api_key TEXT
 );
 
@@ -25,7 +23,7 @@ CREATE TABLE IF NOT EXISTS flight_plan (
     number_onboard INTEGER
 );
 
-INSERT INTO users (full_name, username, password, api_key) VALUES ('John Smith', 'admin', 'P@ssw0rd', 'f90ed373612749eda337c9a4d537c247');
+INSERT INTO users (full_name, api_key) VALUES ('John Smith', 'f90ed373612749eda337c9a4d537c247');
 
 INSERT INTO flight_plan (flight_plan_id, altitude, airspeed, aircraft_identification, aircraft_type, arrival_airport, departing_airport, flight_type, departure_time, estimated_arrival_time, route, remarks, fuel_hours, fuel_minutes, number_onboard) VALUES ('326562291a4d482a8e897ddd03e630b9', 11000, 113, 'N332VD', 'L1P Commander 112', 'KWDR', 'KDEH', 'VFR', '2022-03-07T19:35:06Z', '2022-03-07T22:16:06Z', 'KDEH MMM T230 CFIDJ T230 KWDR', '', 3, 55, 2);
 INSERT INTO flight_plan (flight_plan_id, altitude, airspeed, aircraft_identification, aircraft_type, arrival_airport, departing_airport, flight_type, departure_time, estimated_arrival_time, route, remarks, fuel_hours, fuel_minutes, number_onboard) VALUES ('ade7356f184f4317adbcf9cc2d1f3728', 10000, 152, 'N20SOP', 'S22T Cirrus SR22 Turbo', 'KVLD', 'KVNW', 'VFR', '2021-07-25T16:13:16Z', '2021-07-25T20:07:16Z', 'KVNW CEC Q124 ICAVE Q124 KVLD', '', 2, 56, 2);
