@@ -1,6 +1,8 @@
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    full_name TEXT,
+    full_name TEXT,,
+    username TEXT UNIQUE, 
+    password TEXT,
     api_key TEXT
 );
 
