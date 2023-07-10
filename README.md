@@ -89,6 +89,7 @@ The SQLite database is included with the example code, however if you want to re
 database.sql file. You will need sqlite3.exe which can be found here: https://www.sqlite.org/2022/sqlite-tools-win32-x86-3400100.zip
 
 Before you run the command line below, be sure that you are in the project directory `<project>\fight-plan/assets`
+
 The command line statement to recreate the database is `{Path To SQLite exe}\sqlite3.exe duckair.db ".read database.sql"`
 
 ## Updating the paths to files in the code
