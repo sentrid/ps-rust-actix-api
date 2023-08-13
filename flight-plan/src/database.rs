@@ -2,7 +2,7 @@ use config::Config;
 use std::error::Error;
 use rusqlite::Connection;
 use uuid::Uuid;
-use crate::schema::{FlightPlan, User};
+use crate::schema::FlightPlan;
 
 pub fn get_all_flight_plans() -> Result<Option<Vec<FlightPlan>>, Box<dyn Error>> {
     let mut flight_plan_list : Vec<FlightPlan> = Vec::new();
