@@ -1,7 +1,7 @@
 use actix_web::{get, post, delete, put, HttpResponse, Responder, web};
 use crate::database;
 use crate::database::insert_flight_plan;
-use crate::schema::{FlightPlan};
+use crate::schema::FlightPlan;
 
 #[get("/api/v1/flightplan")]
 pub async fn get_all_flight_plans() -> impl Responder {

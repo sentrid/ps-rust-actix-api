@@ -30,7 +30,7 @@ pub fn get_all_flight_plans() -> Result<Option<Vec<FlightPlan>>, Box<dyn Error>>
     })?;
 
     for plan in query_result {
-        flight_plan_list.push(plan.unwrap());
+        flight_plan_list.push(plan?);
     }
 
     match flight_plan_list.len() > 0 {
@@ -69,7 +69,7 @@ pub fn get_flight_plan_by_id(plan_id: String) -> Result<Option<FlightPlan>, Box<
     let mut flight_plan: Option<FlightPlan> = None;
 
     for plan in query_result {
-        flight_plan = Some(plan.unwrap());
+        flight_plan = Some(plan?);
         break;
     }
 
@@ -124,8 +124,7 @@ pub fn update_flight_plan(flight_plan: FlightPlan) -> Result<bool, Box<dyn Error
 fn get_database_connection() -> Result<Connection, Box<dyn Error>> {
     let settings = Config::builder()
         .add_source(config::File::with_name("config"))
-        .build()
-        .unwrap();
-    let connection = Connection::open(settings.get_string("DATABASE_LOCATION").unwrap())?;
+        .build()?;
+    let connection = Connection::open(settings.get_string("DATABASE_LOCATION")?)?;
     Ok(connection)
 }
