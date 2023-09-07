@@ -1,6 +1,5 @@
 use actix_web::{get, post, delete, put, HttpResponse, Responder, web};
 use crate::database;
-use crate::database::insert_flight_plan;
 use crate::schema::FlightPlan;
 
 #[get("/api/v1/flightplan")]
@@ -49,7 +48,7 @@ pub async fn delete_flight_plan_by_id(path: web::Path<String>) -> impl Responder
 
 #[post("/api/v1/flightplan")]
 pub async fn file_flight_plan(flight_plan: web::Json<FlightPlan>) -> impl Responder {
-    match insert_flight_plan(flight_plan.into_inner()) {
+    match database::insert_flight_plan(flight_plan.into_inner()) {
         Ok(_) => {
             HttpResponse::Ok().finish()
         }
