@@ -1,6 +1,7 @@
 use actix_web::{get, post, delete, put, HttpResponse, Responder, web};
 use crate::database;
 use crate::schema::FlightPlan;
+use web::{Path, Json};
 
 #[get("/api/v1/flightplan")]
 pub async fn get_all_flight_plans() -> impl Responder {
@@ -15,8 +16,8 @@ pub async fn get_all_flight_plans() -> impl Responder {
 }
 
 #[get("/api/v1/flightplan/{flight_plan_id}")]
-pub async fn get_flight_plan_by_id(path: web::Path<String>) -> impl Responder {
-    let flight_plan_id = path.into_inner();
+pub async fn get_flight_plan_by_id(id: Path<String>) -> impl Responder {
+    let flight_plan_id = id.into_inner();
     let db_result = database::get_flight_plan_by_id(flight_plan_id.clone()).unwrap();
     
     match db_result {
@@ -30,8 +31,8 @@ pub async fn get_flight_plan_by_id(path: web::Path<String>) -> impl Responder {
 }
 
 #[delete("/api/v1/flightplan/{flight_plan_id}")]
-pub async fn delete_flight_plan_by_id(path: web::Path<String>) -> impl Responder {
-    let flight_plan_id = path.into_inner();
+pub async fn delete_flight_plan_by_id(id: Path<String>) -> impl Responder {
+    let flight_plan_id = id.into_inner();
     match database::delete_flight_plan(flight_plan_id.clone()) {
         Ok(successful) => {
             if successful {
@@ -47,7 +48,7 @@ pub async fn delete_flight_plan_by_id(path: web::Path<String>) -> impl Responder
 }
 
 #[post("/api/v1/flightplan")]
-pub async fn file_flight_plan(flight_plan: web::Json<FlightPlan>) -> impl Responder {
+pub async fn file_flight_plan(flight_plan: Json<FlightPlan>) -> impl Responder {
     match database::insert_flight_plan(flight_plan.into_inner()) {
         Ok(_) => {
             HttpResponse::Ok().finish()
@@ -59,7 +60,7 @@ pub async fn file_flight_plan(flight_plan: web::Json<FlightPlan>) -> impl Respon
 }
 
 #[put("/api/v1/flightplan")]
-pub async fn update_flight_plan(flight_plan: web::Json<FlightPlan>) -> impl Responder {
+pub async fn update_flight_plan(flight_plan: Json<FlightPlan>) -> impl Responder {
     let updated_flight_plan = flight_plan.into_inner();
     match database::update_flight_plan(updated_flight_plan.clone()) {
         Ok(succeeded) => {
