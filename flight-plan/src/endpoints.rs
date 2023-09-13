@@ -18,9 +18,8 @@ pub async fn get_all_flight_plans() -> impl Responder {
 #[get("/api/v1/flightplan/{flight_plan_id}")]
 pub async fn get_flight_plan_by_id(id: Path<String>) -> impl Responder {
     let flight_plan_id = id.into_inner();
-    let db_result = database::get_flight_plan_by_id(flight_plan_id.clone()).unwrap();
     
-    match db_result {
+    match database::get_flight_plan_by_id(flight_plan_id.clone()).unwrap() {
         Some(flight_plan_from_db) => {
             return HttpResponse::Ok().json(flight_plan_from_db);
         },
