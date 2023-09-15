@@ -7,10 +7,10 @@ use web::{Path, Json};
 pub async fn get_all_flight_plans() -> impl Responder {
     match database::get_all_flight_plans().unwrap() {
        Some(flight_plan_list) => {
-            return HttpResponse::Ok().content_type("application/json").json(flight_plan_list);
+            HttpResponse::Ok().content_type("application/json").json(flight_plan_list)
        },
        None => {
-            return HttpResponse::NoContent().body("There are no flight plans filed with this system");
+            HttpResponse::NoContent().body("There are no flight plans filed with this system")
        }
     }
 }
@@ -21,10 +21,10 @@ pub async fn get_flight_plan_by_id(id: Path<String>) -> impl Responder {
     
     match database::get_flight_plan_by_id(flight_plan_id.clone()).unwrap() {
         Some(flight_plan_from_db) => {
-            return HttpResponse::Ok().json(flight_plan_from_db);
+            HttpResponse::Ok().content_type("application/json").json(flight_plan_from_db)
         },
         None => {
-            return HttpResponse::NotFound().body(format!("There is not any flight plan with id {}", flight_plan_id));
+            HttpResponse::NotFound().body(format!("There is not any flight plan with id {}", flight_plan_id))
         }
     }
 }
@@ -67,7 +67,7 @@ pub async fn update_flight_plan(flight_plan: Json<FlightPlan>) -> impl Responder
                 HttpResponse::Ok().finish()
             } else {
                 HttpResponse::NotFound().body(format!("There is not any flight plan with id {}", updated_flight_plan.flight_plan_id))
-            }            
+            }
         }
         Err(_) => {
             HttpResponse::InternalServerError().finish()
