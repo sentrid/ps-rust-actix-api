@@ -21,7 +21,6 @@ async fn main() -> std::io::Result<()> {
             .service(file_flight_plan)
             .service(update_flight_plan)
             .wrap(Logger::default())
-            .wrap(Logger::new("%a %{User-Agent}i"))
     })
         .bind(("0.0.0.0", 3000))?
         .workers(2)
