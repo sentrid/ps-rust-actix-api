@@ -5,10 +5,6 @@ mod endpoints;
 use actix_web::{App, HttpServer};
 use env_logger::Env;
 use actix_web::middleware::Logger;
-
-use crate::endpoints::{get_all_flight_plans, get_flight_plan_by_id, 
-                       delete_flight_plan_by_id, file_flight_plan, 
-                       update_flight_plan, new_user};
 use config::Config;
 use actix_web_httpauth::extractors::bearer::{BearerAuth, self};
 use actix_web_httpauth::extractors::AuthenticationError;
@@ -16,6 +12,14 @@ use actix_web_httpauth::middleware::HttpAuthentication;
 use actix_web::{Error, dev::ServiceRequest};
 use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 use actix_cors::Cors;
+
+use crate::endpoints::{
+    get_all_flight_plans, get_flight_plan_by_id,
+    delete_flight_plan_by_id, file_flight_plan,
+    update_flight_plan, new_user
+};
+
+
 
 async fn validator(
     req: ServiceRequest,
