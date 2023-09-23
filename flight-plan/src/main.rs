@@ -19,8 +19,6 @@ use crate::endpoints::{
     update_flight_plan, new_user
 };
 
-
-
 async fn validator(
     req: ServiceRequest,
     credentials: BearerAuth
@@ -40,8 +38,7 @@ async fn validator(
                 None => {
                     Err((AuthenticationError::from(config).into(), req))
                 },
-            }
-            
+            }            
         },
         Err(_) => {
             Err((AuthenticationError::from(config).into(), req))
@@ -60,13 +57,13 @@ async fn main() -> std::io::Result<()> {
     let certificate_key = settings.get_string("CERTIFICATE_KEY").unwrap();
     let certificate = settings.get_string("CERTIFICATE").unwrap();
 
-    let mut builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
-    builder.set_private_key_file(certificate_key, SslFiletype::PEM).unwrap();
-    builder.set_certificate_chain_file(certificate).unwrap();
+    let mut ssl_builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
+    ssl_builder.set_private_key_file(certificate_key, SslFiletype::PEM).unwrap();
+    ssl_builder.set_certificate_chain_file(certificate).unwrap();
 
     env_logger::init_from_env(Env::default().default_filter_or("info"));    
     HttpServer::new(move || {
-        let middleware = HttpAuthentication::bearer(validator);
+        let authentication_validator = HttpAuthentication::bearer(validator);
         App::new()
             .service(get_flight_plan_by_id)
             .service(get_all_flight_plans)
@@ -74,12 +71,11 @@ async fn main() -> std::io::Result<()> {
             .service(file_flight_plan)
             .service(update_flight_plan)
             .service(new_user)
-            .wrap(middleware)
+            .wrap(authentication_validator)
             .wrap(Logger::default())
-            .wrap(Logger::new("%a %{User-Agent}i"))
             .wrap(
                 Cors::default()
-                    .allow_any_method()
+                    .allowed_methods(vec!["GET", "POST", "PUT", "DELETE"])
                     .allow_any_origin()
                     .allow_any_header()
                     .supports_credentials()
@@ -87,7 +83,7 @@ async fn main() -> std::io::Result<()> {
             )
     })
         .bind(("0.0.0.0", 3000))?
-        .bind_openssl("0.0.0.0:3001", builder)?
+        .bind_openssl("0.0.0.0:3001", ssl_builder)?
         .workers(2)
         .run()
         .await
