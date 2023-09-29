@@ -57,7 +57,7 @@ async fn main() -> std::io::Result<()> {
     let certificate_key = settings.get_string("CERTIFICATE_KEY").unwrap();
     let certificate = settings.get_string("CERTIFICATE").unwrap();
 
-    let mut ssl_builder = SslAcceptor::mozilla_intermediate(SslMethod::tls()).unwrap();
+    let mut ssl_builder = SslAcceptor::mozilla_intermediate_v5(SslMethod::tls())?;
     ssl_builder.set_private_key_file(certificate_key, SslFiletype::PEM).unwrap();
     ssl_builder.set_certificate_chain_file(certificate).unwrap();
 
@@ -77,9 +77,7 @@ async fn main() -> std::io::Result<()> {
                 Cors::default()
                     .allowed_methods(vec!["GET", "POST", "PUT", "DELETE"])
                     .allow_any_origin()
-                    .allow_any_header()
-                    .supports_credentials()
-                    .max_age(3600),
+                    .max_age(3600)
             )
     })
         .bind(("0.0.0.0", 3000))?

@@ -3,7 +3,7 @@ use crate::database;
 use crate::schema::{FlightPlan, User};
 use web::{Path, Json};
 
-#[post("/api/v1/admin/user/create")]
+#[post("/api/v1/admin/user")]
 pub async fn new_user(user: web::Json<User>) -> impl Responder {
     match database::create_user(user.into_inner()) {
         Ok(api_key) => HttpResponse::Ok().body(api_key),
