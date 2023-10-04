@@ -2,7 +2,7 @@ mod schema;
 mod database;
 mod endpoints;
 
-use actix_web::{App, HttpServer};
+use actix_web::{App, HttpServer, HttpMessage};
 use env_logger::Env;
 use actix_web::middleware::Logger;
 use config::Config;
@@ -27,13 +27,14 @@ async fn validator(
     let config = req.app_data::<bearer::Config>()
             .cloned()
             .unwrap_or_default()
-            .scope("urn:flight-plans");
+            .scope("");
 
     match database::get_user(String::from(credentials.token())) {
         Ok(user) => {
             match user {
                 Some(_) => {
-                    return Ok(req);
+                    req.extensions_mut().insert(user);
+                    Ok(req)
                 },
                 None => {
                     Err((AuthenticationError::from(config).into(), req))
