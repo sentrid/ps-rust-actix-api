@@ -155,3 +155,70 @@ fn get_database_connection() -> Result<Connection, Box<dyn Error>> {
     let connection = Connection::open(settings.get_string("DATABASE_LOCATION").unwrap())?;
     Ok(connection)
 }
+
+
+#[cfg(test)]
+mod test {
+    /// NOTE: These tests are expecting the default database rows to be in place.
+    /// If you change or remove any of the original 25 flight plans, one or more
+    /// of these tests WILL Fail
+    /// 
+    /// These tests are also destructive to the original database. The database WILL
+    /// need to be rebuilt after running these tests.
+    
+    use super::*;
+
+    #[test]
+    fn test_database_connection() {
+        let connection = get_database_connection().is_ok();
+        assert!(connection == true);
+    }
+
+    #[test]
+    fn test_database_has_rows() {
+        let row_count = get_all_flight_plans()
+                              .unwrap()
+                              .unwrap()
+                              .len();        
+        assert!(row_count == 25);
+    }
+
+    #[test]
+    fn test_insert_flight_plan() {
+        let flight_plan = FlightPlan {
+            flight_plan_id: String::from(""),
+            altitude: 1000,
+            airspeed: 200,
+            aircraft_identification: String::from("N7368F"),
+            aircraft_type: String::from("Cessna 172/S"),
+            arrival_airport: String::from("KBNA"),
+            departing_airport: String::from("KIAD"),
+            flight_type: String::from("IFR"),
+            departure_time: String::from("2022-04-05T03:25:46Z"),
+            estimated_arrival_time: String::from("2022-02-21T10:33:30Z"),
+            route: String::from("KMCO YQL T359 BURFA T359 KSLI"),
+            remarks: String::from("training"),
+            fuel_hours: 4,
+            fuel_minutes: 15,
+            number_onboard: 2,
+        };
+        assert!(insert_flight_plan(flight_plan).is_ok());
+    }
+
+    #[test]
+    fn test_get_flight_plan_by_id() {
+        let mut flight_plan_id = String::from("");
+        let connection = get_database_connection().unwrap();
+        let mut statement = connection.prepare("SELECT flight_plan_id FROM flight_plan WHERE id = (SELECT max(id) from flight_plan)").unwrap();
+        let mut query_result = statement.query_map([], |row| {
+            Ok(flight_plan_id = row.get(0).unwrap())
+        }).unwrap();
+
+        query_result.next();
+        assert!(!flight_plan_id.is_empty(), "cannot find a flight plan id");
+        
+        let last_flight_plan = get_flight_plan_by_id(flight_plan_id);
+        assert!(last_flight_plan.is_ok());
+    }    
+
+}
