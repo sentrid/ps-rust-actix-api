@@ -1,0 +1,60 @@
+<div class="card" style="margin: 12px;margin-bottom: 50px;"> 
+    <div class="card-body" style="margin-left: 54px;margin-right: 91px;"> 
+        <h4 class="card-title" style="padding: 6px;border-bottom-style: solid;border-bottom-color: rgba(33,37,41,0.28);">' + flight_plan.departing_airport + ' to ' + flight_plan.arrival_airport + '</h4> 
+        <div></div> 
+        <div class="row" style="margin-top: 25px;"> 
+            <div class="col"> 
+                <h1 style="font-size: 16px;">Flight Type</h1> 
+                <p>' + flight_plan.flight_type + '</p> 
+            </div> 
+            <div class="col"> 
+                <h1 style="font-size: 16px;">Aircraft Identification</h1> 
+                <p>' + flight_plan.aircraft_identification + '</p> 
+            </div> 
+            <div class="col"> 
+                <h1 style="font-size: 16px;">Aircraft Type</h1> 
+                <p>'+ flight_plan.aircraft_type +'</p> 
+            </div> 
+            <div class="col"> 
+                <h1 style="font-size: 16px;">Fuel on Board<br></h1> 
+                <p>'+ flight_plan.fuel_hours +' hour(s) ' + flight_plan.fuel_minutes + ' minutes' +'</p> 
+            </div> 
+        </div> 
+        <div class="row" style="margin-top: 9px;"> 
+            <div class="col"> 
+                <h1 style="font-size: 16px;">Filed Altitude</h1> 
+                <p>'+ flight_plan.altitude +'</p> 
+            </div> 
+            <div class="col"> 
+                <h1 style="font-size: 16px;">Filed Airspeed</h1> 
+                <p>'+ flight_plan.airspeed +'</p> 
+            </div> 
+            <div class="col"> 
+                <h1 style="font-size: 16px;">Departure Time</h1> 
+                <p>'+ flight_plan.departure_time +'<br></p> 
+            </div> 
+            <div class="col"> 
+                <h1 style="font-size: 16px;">Estimated Arrival Time<br></h1> 
+                <p>'+ flight_plan.estimated_arrival_time +'<br></p> 
+            </div> 
+        </div> 
+        <div class="row" style="margin-top: 8px;"> 
+            <div class="col"> 
+                <h1 style="font-size: 16px;">Route</h1> 
+                <p>'+ flight_plan.route +'<br></p> 
+            </div> 
+        </div> 
+        <div class="row"> 
+            <div class="col-xxl-12" style="margin-top: 7px;"> 
+                <h1 style="font-size: 16px;">Remarks</h1> 
+                <p>'+ flight_plan.remarks +'</p> 
+            </div> 
+        </div> 
+        <div class="row" style="border-top-style: solid;border-top-color: rgba(33,37,41,0.28);"> 
+            <div class="col" style="border-top-color: rgba(33,37,41,0.28);margin-top: 6px;"> 
+                <h1 style="font-size: 14px;margin-top: 12px;">Flight Plan Id&nbsp; '+ flight_plan.flight_plan_id +'</h1> 
+            </div> 
+            <div class="col" style="text-align: right;margin-top: 6px;"><button class="btn btn-primary" type="button" style="text-align: right;font-size: 13px;background: var(--bs-red);" onclick="delete_flight_plan(''+ flight_plan.flight_plan_id +'')">Delete This Flight Plan</button></div> 
+        </div> 
+    </div> 
+</div>
