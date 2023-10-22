@@ -106,21 +106,6 @@ async function get_all_flight_plans() {
     document.getElementById('flight_plan_list').innerHTML = html;
 }
 
-async function delete_flight_plan(flight_plan_id) {
-    let response = await fetch(api_base_url  + api_path + '/' + flight_plan_id, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': 'Bearer ' + api_key
-        }
-    });
-
-    if(response.status !== 200) {
-        alert(response.status);
-    } else {
-        get_all_flight_plans();
-    }
-}
-
 async function load_flight_plan() {
     let flight_plan_id = document.getElementById("flightPlanId").value;
     let api_response = await fetch(api_base_url + api_path + '/' + flight_plan_id, {
@@ -156,6 +141,21 @@ async function load_flight_plan() {
     document.getElementById('saveButton').text = "Update Flight Plan";
 }
 
+async function delete_flight_plan(flight_plan_id) {
+    let response = await fetch(api_base_url  + api_path + '/' + flight_plan_id, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + api_key
+        }
+    });
+
+    if(response.status !== 200) {
+        alert(response.status);
+    } else {
+        get_all_flight_plans();
+    }
+}
+
 async function save_flight_plan() {
     if (document.getElementById('isNew').value === "true") {
         file_flight_plan();
@@ -164,9 +164,9 @@ async function save_flight_plan() {
     }
 }
 
-async function update_flight_plan() {
+async function file_flight_plan() {
     let api_response = await fetch(api_base_url + api_path, {
-        method: "PUT",
+        method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + api_key,
             'Content-Type': 'application/json'
@@ -196,9 +196,9 @@ async function update_flight_plan() {
     }
 }
 
-async function file_flight_plan() {
+async function update_flight_plan() {
     let api_response = await fetch(api_base_url + api_path, {
-        method: 'POST',
+        method: "PUT",
         headers: {
             'Authorization': 'Bearer ' + api_key,
             'Content-Type': 'application/json'
