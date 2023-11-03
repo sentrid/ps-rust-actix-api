@@ -171,7 +171,6 @@ async function file_flight_plan() {
             'Authorization': 'Bearer ' + api_key,
             'Content-Type': 'application/json'
         },
-        credentials: 'include',
         body: JSON.stringify({
             flight_plan_id: document.getElementById("flightPlanId").value,
             altitude: Number(document.getElementById('altitude').value),
@@ -203,7 +202,6 @@ async function update_flight_plan() {
             'Authorization': 'Bearer ' + api_key,
             'Content-Type': 'application/json'
         },
-        credentials: 'include',
         body: JSON.stringify({
             flight_plan_id: document.getElementById("flightPlanId").value,
             altitude: Number(document.getElementById('altitude').value),
